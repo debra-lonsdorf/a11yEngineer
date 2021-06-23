@@ -32,11 +32,12 @@ screenreader:
 
 - Use a Radio Button when the user needs to choose between more than two states
 - You should use a native element rather than a custom element because it will announce the correct built-in screen reader announcements without additional development effort
-- A Radio Button should never do anything but toggle between selected and unselected. It should never automatically navigate the user to another field or screen
+- A Radio Button should just toggle between selected and unselected. Toggling can add related content to screen.  It should not automatically navigate the user to another field or screen, which would be a change of context
     
 ### Name
 
 - Name describes purpose while focus is in/on the control
+- Name should match the visible label
 
 - **iOS Tips**
 	- Set a label in Interface Builder in the Identity Inspector
