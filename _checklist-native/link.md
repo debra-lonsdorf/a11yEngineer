@@ -16,7 +16,7 @@ mobile:
   swipe: |
     Focus moves to the element
   rotor: |
-    
+    Can be used to navigate to and activate links 
   doubletap: |
     Activates the link
 
@@ -34,7 +34,6 @@ screenreader:
 
 ## Developer notes
 
-
 - Clickable textview that navigates the user outside the app (Ex: to a browser)
 
 ### Name
@@ -43,14 +42,15 @@ screenreader:
 
 ### Role
 
-- Ensure links appear in the Local Context Menu and Rotor  
+- Ensure links appear in the Local Context Menu and Rotor
+- Ensure links can be activated from text view or from the LCM or Rotor. Only one way is required
   
 - **iOS  
   **
-  - Use TextView with link trait. Announces as "link"
+  - Use `TextView` with `UIAccessibilityTraitLink`. Announces as "link"
 - **Android**  
-  - TextView - Announces as "link"  
-  - URLSpan / ClickableSpan
+  - `TextView` - Announces as "link"  
+  - `URLSpan` / `ClickableSpan`
   - Linkify Class
 
 ### Groupings
@@ -60,30 +60,31 @@ screenreader:
 ### State
 
 - **iOS**
-  - Active: isEnabled property
-  - Disabled: UIAccessibilityTraitNotEnabled. Announcement: dimmed  
+  - Active: `isEnabled property`
+  - Disabled: `UIAccessibilityTraitNotEnabled`. Announcement: dimmed  
 - **Android**  
-  - Active: android:enabled=true
-  - Disabled" android:enabled=false. Announcement: disabled
+  - Active: `android:enabled`
+  - Disabled: `android:enabled`. Announcement: disabled
 
 ### Focus
 
 - Only manage focus when needed. Primarily, let the device manage default focus.  
   
 - **iOS Options**
-  - accessibilityElementIsFocused  
-  - isAccessibilityElement - Yes, if the element can respond to user input
-  - To move screen reader focus to newly revealed content: UIAccessibilityLayoutChangedNotification
-  - To NOT move focus, but announce new content: UIAccessibilityAnnouncementNotification
+  - `accessibilityElementIsFocused`  
+  - `isAccessibilityElement` makes the element visible or not to the Accessibility API
+  - `accessibilityElementsHidden` indicates that the children elements of the target element are visible or not to the Accessibility API
+  - To move screen reader focus to newly revealed content: `UIAccessibilityLayoutChangedNotification`
+  - To NOT move focus, but announce new content: `UIAccessibilityAnnouncementNotification`
 - **Android Options**
-  - android:focusable=true
-  - android=clickable=true
-  - Implement an onClick( ) event handler for keyboard, not onTouch( )
-  - nextFocusDown
-  - nextFocusUp
-  - nextFocusRight
-  - nextFocusLeft
-  - accessibilityTraversalBefore (or after)
-  - To move screen reader focus to newly revealed content: Type_View_Focused
-  - To NOT move focus, but announce new content: accessibilityLiveRegion
-  - To hide controls: Important_For _Accessibility_NO
+  - `android:focusable`
+  - `android=clickable`
+  - Implement an `onClick( )` event handler for keyboard, as well as `onTouch( )`
+  - `nextFocusDown`
+  - `nextFocusUp`
+  - `nextFocusRight`
+  - `nextFocusLeft`
+  - `accessibilityTraversalBefore` (or after)
+  - To move screen reader focus to newly revealed content: `Type_View_Focused`
+  - To NOT move focus, but announce new content: `accessibilityLiveRegion` (set to polite or assertive)
+  - To hide controls from screen reader: `Important_For_Accessibility_false`
